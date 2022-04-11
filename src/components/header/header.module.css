@@ -1,0 +1,8 @@
+.header{
+    border: 1px solid red;
+}
+
+.header>img{
+    width: 100%;
+    max-width: 80px;
+}
