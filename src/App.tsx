@@ -7,6 +7,7 @@ import Texto from './components/texto'
 import Button from './components/button';
 import React, { useState } from 'react';
 import List from './components/list';
+import Calculadora from './components/calculadora/calculadora';
 
 function App() {
 
@@ -127,6 +128,10 @@ function App() {
               <List key={index} data={item} />
             ))}
           </ul>
+        </div>
+        <div className={styles.divisoria}>
+          <h2>Calculadora</h2>
+              <Calculadora/>
         </div>
       </main>
       <Footer />
