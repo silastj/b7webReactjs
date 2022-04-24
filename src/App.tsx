@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import List from './components/list';
 import Calculadora from './components/calculadora/calculadora';
 import Hooks from '../../react-study/src/components/hooks/hooks'
+import Post from '../../react-study/src/components/posts/posts'
 
 function App() {
 
@@ -136,6 +137,10 @@ function App() {
         </div>
         <div className={styles.divisoria}>
               <Hooks/>
+        </div>
+        <div className={styles.divisoria}>
+        <h2>Posts</h2>
+              <Post/>
         </div>
       </main>
       <Footer />

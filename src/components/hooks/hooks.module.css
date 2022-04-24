@@ -30,3 +30,9 @@
     width: 100%;
     object-fit: cover;
 }
+.error{
+    width: 100px;
+    background-color: red;
+    color: white;
+    padding: 20px 30px;
+}

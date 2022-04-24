@@ -5,3 +5,8 @@ create-react-app react-study --template typescript
 cd react-study
 npm run start
 
+
+## FAZER TESTE COM API FAKE
+- https://jsonplaceholder.typicode.com/
+
+
