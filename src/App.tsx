@@ -142,6 +142,9 @@ function App() {
         <h2>Posts</h2>
               <Post/>
         </div>
+        <div className={styles.divisoria}>
+        <h2>New</h2>
+        </div>
       </main>
       <Footer />
     </div>

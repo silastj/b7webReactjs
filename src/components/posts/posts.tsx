@@ -1,11 +1,16 @@
 import styles from './posts.module.css'
 import { Posts } from '../../types/Posts'
 import { useState, useEffect } from 'react'
+import { error } from 'console';
 
-
+type InputChangeEvent = React.ChangeEvent<HTMLInputElement>
+type TextAreaChangeEvent = React.ChangeEvent<HTMLTextAreaElement>
 const Post = () => {
         const [loading, setLoading] = useState(false);
         const [posts, setPosts] = useState<Posts[]>([]);
+        const [fetchError, setFechError] = useState(false);
+        const [titulo, setTitulo] = useState('');
+        const [descricao, setDescricao] = useState('');
 
         useEffect(() => {
 
@@ -14,29 +19,59 @@ const Post = () => {
         const HandlePosts = async () => {
                 try {
                         setLoading(true)
-                        let response = await fetch('https://sonplaceholder.typicode.com/posts')
+                        let response = await fetch('https://jsonplaceholder.typicode.com/posts')
                         let json = await response.json();
                         setPosts(json);
                         setLoading(false)
+                        setFechError(false);
 
                 } catch (error) {
+                        setFechError(true);
                         console.error('error na API:', error)
                 }
 
         }
 
+        const handlett = (event: InputChangeEvent) => {
+                setTitulo(event.target.value)
+                console.log('event', event.target.value)
+        }
+
+        const handlearea = (event: TextAreaChangeEvent) => {
+                setDescricao(event.target.value)
+                console.log('eventDois', event?.target.value)
+        }
+
+        const handleIncluir = () => {
+                alert(titulo +' - '+ descricao )
+                setDescricao('')
+                setTitulo('')
+        }
 
         return (
                 <div className={styles.posts}>
+                        <label htmlFor="title">Titulo</label>
+                        <input type="text" id="title" value={titulo} onChange={handlett} />
+                        <br />
+                        <br />
+                        <textarea name="textarea" value={descricao} id="textarea" onChange={handlearea}></textarea>
+                        <button onClick={handleIncluir}>Incluir Post</button>
+                        <br />
+
+                        <p>Titulo:{titulo}</p>
+                        <p>Descrição:{descricao}</p>
+                        <p>Total: {titulo}{titulo.length > 0 ? `${titulo} - ` : ''} {descricao}</p>
+                        <br />
                         {loading && posts.length > 1 &&
                                 <div>
                                         <p>Carregando os Posts....</p>
                                 </div>
                         }
-                        {!loading && posts.length === 0 &&
+                        {console.log('post', posts.length)}
+                        {posts.length === 0 && fetchError &&
                                 <div>
                                         <p>Erro nos Posts....</p>
-                                </div>                        
+                                </div>
                         }
                         <button onClick={HandlePosts}>Aparecer Posts!</button>
                         {posts.length > 1 &&
