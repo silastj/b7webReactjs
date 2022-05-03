@@ -5,6 +5,8 @@ import { error } from 'console';
 
 type InputChangeEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaChangeEvent = React.ChangeEvent<HTMLTextAreaElement>
+
+
 const Post = () => {
         const [loading, setLoading] = useState(false);
         const [posts, setPosts] = useState<Posts[]>([]);
@@ -42,10 +44,32 @@ const Post = () => {
                 console.log('eventDois', event?.target.value)
         }
 
-        const handleIncluir = () => {
-                alert(titulo +' - '+ descricao )
-                setDescricao('')
-                setTitulo('')
+        const handleIncluir = async () => {
+                if (titulo && descricao) {
+
+                        let res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+                                method: 'POST',
+                                body: JSON.stringify({
+                                        title: titulo,
+                                        body: descricao,
+                                        userId: 1
+                                }),
+                                headers: {
+                                        'Content-Type': 'application/json'
+                                }
+                        });
+                        let json = await res.json();
+                        console.log('json ', json)
+                        if(json.id){
+                                alert(`Post add com sucesso!!', ${titulo} ${descricao}`)
+                        }else{
+                                alert('Erro no enviou do post!!')
+                        }
+                        setDescricao('')
+                        setTitulo('')
+                } else {
+                        alert('Por favor, preencher os campos!!! ')
+                }
         }
 
         return (
